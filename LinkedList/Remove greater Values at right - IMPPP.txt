@@ -1,0 +1,129 @@
+It is bit tricky and important has best approaches
+
+
+You are given the head of a linked list.
+
+Remove every node which has a node with a greater value anywhere to the right side of it.
+
+Return the head of the modified linked list.
+
+
+Approach:
+
+1st Approach - 
+
+reverse the linked list and eat (remove) all the values which are greater than the cur value, then again reverse the linked list.
+
+2nd Approach -
+
+reverse the ll , Using stack store the values iff the values of the cur should greater than the top.
+
+3rd Approach - 
+
+come from tail , head->next is head->next iff head->next > head
+
+Code in CPP:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNodes(ListNode* head) {
+
+        // Recursive call which take cares from the tail.
+        /*
+        if( !head) return NULL;
+        head->next = removeNodes(head->next);
+        return head->next != NULL && head->val < head->next->val ? head->next : head;
+    }
+    */
+
+    /// Monotonic Decreasing stack  - reverse and eating up from the front;
+
+    vector<ListNode*> vec;
+    ListNode* temp = head;
+
+    while(temp)
+    {
+        vec.push_back(temp);
+        temp=temp->next;
+    }
+
+    reverse(vec.begin() , vec.end());
+
+    stack<ListNode*> st;
+
+    for(ListNode* node: vec)
+    {
+        if(st.size() == 0)
+        {
+            st.push(node);
+            continue;
+        }
+
+        if(st.top()->val <= node->val)
+        {
+            st.push(node);
+        }
+    }
+
+    if(st.size()==0) return NULL;
+
+    ListNode* root = st.top();
+    ListNode* tail = st.top();
+    st.pop();
+
+    while(st.size())
+    {
+
+        ListNode* node = st.top();
+        st.pop();
+        tail->next = node;
+        tail = tail->next;
+    }
+    tail->next = NULL;
+
+    return root;
+
+
+
+    /// eating up optimised way
+
+    head = reversell(head);
+
+    for(auto node = head; node!=nullptr && node->next!=nullptr; )
+    {
+        if(node->val > node->next->val)
+        {
+            node->next = node->next->next;
+        }
+        else
+        node= node->next;
+    }
+
+    return reversell(head);
+    }
+
+    ListNode* reversell(head)
+    {
+   
+        ListNode*cur = head;
+        ListNode*prev = nullptr;
+
+        while(cur!=nullptr)
+        {
+            swap(cur->next,prev);
+            swalp(prev, cur);
+        }
+        return prev;
+    }
+};
+
