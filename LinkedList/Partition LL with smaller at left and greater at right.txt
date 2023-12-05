@@ -1,0 +1,42 @@
+Approach:
+
+is simple create two nodes 1 for smaller and the other for larger and build two chains along the loop and at the end join small end to the big start and make sure big end = NULL.
+
+tricky
+=======
+how to join small end to big
+
+ptr1->next = big.next;   // big ListNode objects next  , its not a pointer its an object of a class
+
+
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode small(0) , big(0);
+
+        ListNode *ptr1 = &small, *ptr2 = &big;
+
+        while(head)
+        {
+            if(head->val < x)
+            {
+                ptr1->next = head;
+                ptr1 = ptr1->next;
+
+            }
+
+            else{
+                ptr2->next = head;
+                ptr2 = ptr2->next;
+            }
+
+            head = head->next;
+        }
+
+        ptr2->next = NULL;
+        ptr1->next = big.next;
+
+        return small.next;
+
+    }
+};
