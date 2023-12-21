@@ -1,0 +1,42 @@
+// One pass solution
+'
+Dutch national flag algorithm
+
+all the elements from 0 to l are 0's
+all the elements from l to m are 1's 
+and rest 2's
+
+we need to move m and move l and h based on the m value.
+
+0 1 1 0 2 1
+
+0 0 1 1 2 1
+
+0 0 1 1 1 2
+
+
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int l = -1, m =0, h = nums.size()-1;
+
+        while(m<=h){
+            if(nums[h] == 0) {
+                l++;
+                int t = nums[l];
+                nums[l] = nums[h];
+                nums[h] = t;
+            }
+            if(nums[m] > nums[h])
+            {
+                int t = nums[l];
+                nums[l] = nums[h];
+                nums[h] = t;
+                h--;
+            }
+            m++;
+        }
+        return;
+    }
+};
