@@ -1,0 +1,39 @@
+Solution : Traverse throught the tree and add char to the local string and compare it with the actual answer string when it is an 
+leaf node
+	if( local_string < ans_string)
+		{
+			ans_string = local_string // this string comparision checks the lexicographical order of the string.
+		if both characters at s[i] = ans[i], then compares s[i+1] == ans[i+1] and so on, then if all equals then checks the length,.
+
+
+class Solution {
+public:
+    string smallestFromLeaf(TreeNode* root) {
+
+        int min = INT_MAX;
+        string ans = "~";
+
+        help(root, "", ans);
+        return ans;
+        
+    }
+
+    void help(TreeNode *root, string s, string &ans)
+   {
+        if(root == NULL) return;
+
+        s = char('a' + root->val) + s;
+
+        if(root->left == NULL && root->right == NULL)
+        {
+            if(s < ans)
+            {
+                ans = s;
+            }
+            return;
+        }
+
+        help(root->left, s, ans);
+        help(root->right, s, ans);
+   } 
+};
