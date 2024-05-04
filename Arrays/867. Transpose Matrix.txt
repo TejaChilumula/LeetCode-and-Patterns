@@ -1,0 +1,24 @@
+Transpose of a Matrix,
+
+Edge Case : if it is a 3*2 matrix, then transpose will be 2*3 , so the ans array will be 
+
+arr[col.size()][row.size()]
+
+class Solution {
+public:
+    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+        int row = 0, col = 0;
+
+        vector<vector<int>> ans(matrix[0].size(), vector<int>(matrix.size(),0));
+
+        for(int i=0;i<matrix[0].size();i++)
+        {
+            for(int j=0;j<matrix.size();j++)
+            {
+                ans[i][j] = matrix[j][i];
+            }
+        }
+
+        return ans;
+    }
+};
