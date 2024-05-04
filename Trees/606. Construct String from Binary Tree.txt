@@ -1,0 +1,40 @@
+Need to construct the string of the tree in the pre order and need to take care of the left side of the tree ,
+edge case : we need to print the empty () for the left side , if it has the right child.
+
+it goes in flow, such that iterate the left tree and then right , so if you find out the left node empty print the empty () , then go to the next right node.
+
+But this is not the case with the right node.
+
+
+
+class Solution {
+public:
+    string tree2str(TreeNode* root) {
+
+        string ans = "";
+        help(root, ans, "");
+        return ans;
+    }
+
+    void help(TreeNode *root, string &ans, string lcl)
+    {
+        if(root == NULL) return;
+
+        string s = to_string(root->val);
+
+        ans+=s;
+        if(root->right != NULL || root->left != NULL)
+        {
+        ans+="(";
+        help(root->left, ans, lcl);
+        ans+=')';
+        }
+
+        if(root->right != NULL)
+        {
+        ans+='(';
+        help(root->right, ans, lcl);
+        ans+=')';
+        }
+    }
+};
