@@ -1,0 +1,53 @@
+165. Compare Versions - where the versions string compared and 
+
+if v1 < v2 - return -1
+if v1 > v2 - return 1
+else return 0
+
+
+leading 0's will be removed and then compared.
+
+Procedure - 
+	We will calculate the val till ( . ) , and compare and take decision.
+
+	if the val till the . is equal, then we make the nums as 0 and then we will compare num after the dot.
+	**** at each num between the .s we need to compare at the end. If both are equal default 0 will be returned
+
+
+
+class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+        int num1 = 0;
+        int num2 = 0;
+        int len1 = version1.size();
+        int len2 = version2.size();
+        int i=0, j=0;
+
+
+        while(i<len1 || j<len2)
+        {
+            while(i<len1 && version1[i] != '.')
+            {
+                num1 = num1*10+(version1[i]-'0');
+                i++;
+            }
+            while(j<len2 && version2[j] != '.')
+            {
+                num2 = num2*10+(version2[j]-'0');
+                j++;
+            }
+
+            if(num1 > num2) return 1;
+            if(num1 < num2) return -1;
+           
+
+            i++;
+            j++;
+            num1 = 0;
+            num2 = 0;
+        }
+
+        return 0;
+    }
+};
