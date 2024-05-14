@@ -1,0 +1,34 @@
+min time to remove the consecutive balloons
+
+
+//if you find three or more same colors, it avoids of removing the same color ( min )
+                neededTime[i] = max(neededTime[i], neededTime[i-1]);
+
+
+
+
+
+class Solution {
+public:
+    int minCost(string colors, vector<int>& neededTime) {
+        
+        int ans =0;
+
+        for(int i=1;i<colors.size();i++)
+        {
+            if(colors[i] == colors[i-1])
+            {
+                ans += min(neededTime[i], neededTime[i-1]);
+                // this line is really imp, because 
+                //if you find three or more same colors, it avoids of removing the same color ( min )
+                neededTime[i] = max(neededTime[i], neededTime[i-1]);
+            }
+        }
+
+        return ans;
+    }
+};
+
+// the recursive dp solution is also the same, keep prevColor, prevTime
+// recursion from the back
+// if you find the same color, update the prevTime = max(prevtime, neededTime[i])
