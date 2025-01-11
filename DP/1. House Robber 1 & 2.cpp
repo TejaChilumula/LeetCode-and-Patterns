@@ -1,23 +1,25 @@
 /*
 Approach
 
-Top-Down
-Go from bottom position to the start, we have to go up and left from bottom.
+House Robber 1
+    should not rob the consecutive houses ( only alternate )
+    try all possible ways ( overlapping sub problem )
 
-Bottom-Up ( Tabulation )
-Go from start to bottom, 
-	its kind of all the ways so you need to sum up all the ways,
-	1. how many ways you reach right and down block, so that the summation ways you can reach that block
+    memoised - take , not take and max(take, not take)
 
-Space Optimised
-	we only need two vectors ( prev and cur )
-	Actually we can only need prev and cur const but we have to keep track of all the prev occurances so that we can cal the cur row
-	so
+    tabular - bottom up 
+    dp[0] = arr[0]
 
-	then we store cur in prev
+    dp[1] = max ( arr[1] + dp[i-2], dp[i-1]) // in this case we can get the max one possible
 
-		cur_row[current_block] = cur_row[current_block - 1] + prev_row[same_block]
+    SO O(1)
 
+    only need the prev1 and prev2 elements to get cur
+
+House Robber 2
+    circular houses so first and last are adjacent
+        - try arr[0 to n] and arr[1 to n-1] so that both of these wont be at one place
+        and get max(these two)
 */
 
 class Solution {
