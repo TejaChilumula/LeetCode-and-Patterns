@@ -1,0 +1,32 @@
+// Approach, instead of checking from -10e9 to 10e9 we can search in from each element in the array
+If there is no element before it, then its the starting point
+
+Lets take the ex:
+
+nums = {4, 5, 8, 6, 3}
+
+Whatever the order of the elements, it starts enter the while loop from 3 and checks all the consecutive
+Then again enters into while loop at 8
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set s(nums.begin(), nums.end());
+        int cur = 0, count = 0, ans = 0;
+
+        for(int num : s){
+            if(s.find(num-1) == s.end()){
+                cur = num;
+                count = 1;
+            }
+
+            while(s.find(cur+1) != s.end()){
+                cur += 1;
+                count++;
+            }
+
+            ans = max(count, ans);
+        }
+        return ans;
+    }
+};
