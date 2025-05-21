@@ -1,0 +1,48 @@
+#include<algorithm>
+class Solution {
+public:
+// Basic implementation with the find function - to know whether the element we are inserting into the vec is
+// already present so no duplicate elements will be present in the combination
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> lcl;
+
+        permuted(nums, ans, 0);
+        return ans;
+    }
+
+    void help(vector<int> &nums, vector<vector<int>> &ans, vector<int> &lcl){
+        if(lcl.size() == nums.size()){
+            ans.push_back(lcl);
+            return;
+        }
+
+        for(int i=0;i<nums.size();i++){
+            if(find(lcl.begin(), lcl.end(), nums[i]) == lcl.end()){
+                lcl.push_back(nums[i]);
+                help(nums, ans, lcl);
+                lcl.pop_back();
+            }
+        }
+    }
+
+    // More optimised way is like not using the find function, where 
+    // we can use all the swaps and get all the permutations possible
+    // --- take | Not take
+
+
+    void permuted(vector<int> &nums, vector<vector<int>> &ans, int i){
+        if(i == nums.size()-1){
+            ans.push_back(nums);
+            return;
+        }
+
+        for(int j=i;j<nums.size();j++){
+            swap(nums[i], nums[j]);
+            permuted(nums, ans, i+1);
+            swap(nums[i], nums[j]);
+        }
+
+    }
+    
+};
