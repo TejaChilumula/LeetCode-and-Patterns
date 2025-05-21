@@ -1,0 +1,67 @@
+//My Approach
+ - So I used the Single recursive call to perform the recursive way and then also performed the main operation
+
+
+class Solution {
+public:
+    string countAndSay(int n) {
+        if(n == 1) return "1";
+
+        return help("", n);
+    }
+
+    string help(string s, int n){
+        if(n==1) return "1";
+
+        string ss = help(s,n-1);
+        string new_s = "";
+        int c = 1;
+
+        for(int i=1; i< ss.size();i++){
+            while(ss[i] == ss[i-1]){
+                c++;
+                i++;
+            }
+            new_s += to_string(c) + ss[i-1];
+            c=1;
+        }
+        int len = ss.size();
+        if(ss.size() <= 1 || ss[len-1] != ss[len-2]) new_s += to_string(c) + ss.back();
+
+    return new_s;
+    }
+};
+
+===========Optimized Way=============
+
+ - Optimized way, what we can do is that we can write a use the same recursive function and can use a external describe function which perform the ops
+
+
+class Solution {
+public:
+    string countAndSay(int n) {
+        if (n == 1) return "1"; // Base case
+
+        string prev = countAndSay(n - 1); // Recursive step
+        return describe(prev);            // Generate current term from previous
+    }
+
+private:
+    string describe(const string& s) {
+        string result = "";
+        int count = 1;
+
+        for (int i = 1; i < s.size(); ++i) {
+            if (s[i] == s[i - 1]) {
+                count++;
+            } else {
+                result += to_string(count) + s[i - 1];
+                count = 1;
+            }
+        }
+
+        // Append the final group
+        result += to_string(count) + s.back();
+        return result;
+    }
+};
