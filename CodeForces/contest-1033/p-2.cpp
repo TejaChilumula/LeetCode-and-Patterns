@@ -34,8 +34,8 @@ void solve(long long n, long long m) {
     // means it should be removed from the large nodes, so that these nodes will be added to the least nodes as childrens
 
         for(int i= n-1;i>= 0;i--){
-            if(rem <= val[i]){
-                val[i] = rem;
+            if(rem <= val[i]-1){
+                val[i] -= rem;
                 rem = 0;
             }
             else{
