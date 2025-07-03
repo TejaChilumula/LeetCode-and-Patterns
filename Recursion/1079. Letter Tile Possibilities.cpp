@@ -40,7 +40,7 @@ public:
     //     }
     // }
 
-    void helper2(string tiles, unordered_map<char, int> freq, int& total){
+    void helper2(std::string tiles, unordered_map<char, int> freq, int& total){
 
         for(auto& [c, count] : freq){
             if(count == 0) continue;
