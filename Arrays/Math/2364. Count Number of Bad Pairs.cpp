@@ -1,11 +1,28 @@
 class Solution {
 public:
     long long countBadPairs(vector<int>& nums) {
+
+        /*
+         - bad - 
+                j - i != arr[j] - arr[i]
+            can rewrite as 
+                nums[i] - i != nums[j] - j
+            
+            so, then good ?
+                nums[i] - i = nums[j] - j
+                
+            Then, at each idx find out ( nums[i] - i )
+               then check whether this diff happend past, so those are good pairs
+                 - how many good pairs --- 1 * [ previous occurance ]
+
+                 total += 1*freq[diff] // cause 1 person can mingle with that many previous 
+                 in same good pairs
+        */
         map<int, int> mp;
         long long good_pairs = 0;
         
         for(int i=0;i<nums.size();i++){
-            int diff = i -  nums[i];
+            int diff = nums[i]-i;
 
             good_pairs += mp[diff];
             mp[diff]++;
@@ -23,7 +40,7 @@ public:
 
         /// We can also do it in the other way !!! ///
 
-        // count the bad pairs it self
+        /* count the bad pairs it self
 
         for(int i=0;i<nums.size();i++){
             int diff = i - nums[i];
@@ -45,10 +62,10 @@ public:
 
                        total += 1*freq[diff]
                     
-            */
+            
  
             freq[diff]++;
-        }
+        }*/
 
 
     }
