@@ -6,5 +6,5 @@
         "set": "cpp",
         "unordered_map": "cpp"
     },
-    "autoGitCopilot.enabled": false
+    "autoGitCopilot.enabled": true
 }
