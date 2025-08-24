@@ -32,3 +32,50 @@ public:
 
     }
 };
+
+
+// Priority Queue based
+
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        // using the priority queue
+
+        // aliasing the tuple
+        using T = tuple<int, int, int>;
+        priority_queue<T, vector<T>, greater<T>> q;
+
+        q.push({0, src, 0});
+
+        // adj mat
+        vector<vector<pair<int,int>>> adj(n);
+
+        for(auto e : flights)
+            adj[e[0]].push_back({e[1], e[2]});
+
+        vector<int> stop(n, 1e9);
+
+        
+        while(!q.empty()){
+
+            auto [cost, node, steps] = q.top();
+            q.pop();
+
+            if(node == dst) return cost; // pq ensures fast way
+            
+            if(steps > k || steps >= stop[node]) continue; 
+            // this is like checking the d > dist[node], so we dont go as
+            // it may be min cost but steps are more
+
+            stop[node] = steps;
+
+            for (auto [v, wt] : adj[node]) {
+                // we are pushing each path
+                // PQ ensures we always computer the min cost path
+                q.push({cost + wt, v, steps + 1});
+            }
+        }
+
+        return -1;
+    }
+};
